@@ -3,18 +3,28 @@ import { NgModule } from '@angular/core';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+// ng2 - Charts
+import { ChartsModule } from 'ng2-charts';
+import { DoughnutGraphComponent } from '../components/doughnut-graph/doughnut-graph.component';
+
 import { PagesComponent } from './pages.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { GraphicsComponent } from './graphics/graphics.component';
 
+// Temporal
+import { IncreaserComponent } from '../components/increaser/increaser.component';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
     declarations: [
         PagesComponent,
         DashboardComponent,
         ProgressComponent,
-        GraphicsComponent
+        GraphicsComponent,
+        IncreaserComponent,
+        DoughnutGraphComponent
     ],
     exports: [
         DashboardComponent,
@@ -23,7 +33,9 @@ import { GraphicsComponent } from './graphics/graphics.component';
     ],
     imports: [
         SharedModule,
-        PagesRoutingModule
+        PagesRoutingModule,
+        FormsModule,
+        ChartsModule
     ]
 })
 
