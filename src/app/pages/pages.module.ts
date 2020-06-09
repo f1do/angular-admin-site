@@ -16,6 +16,7 @@ import { GraphicsComponent } from './graphics/graphics.component';
 // Temporal
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { FormsModule } from '@angular/forms';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
         ProgressComponent,
         GraphicsComponent,
         IncreaserComponent,
-        DoughnutGraphComponent
+        DoughnutGraphComponent,
+        AccountSettingsComponent
     ],
     exports: [
         DashboardComponent,
