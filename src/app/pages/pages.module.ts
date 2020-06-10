@@ -17,6 +17,8 @@ import { GraphicsComponent } from './graphics/graphics.component';
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { FormsModule } from '@angular/forms';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
         GraphicsComponent,
         IncreaserComponent,
         DoughnutGraphComponent,
-        AccountSettingsComponent
+        AccountSettingsComponent,
+        PromisesComponent,
+        RxjsComponent
     ],
     exports: [
         DashboardComponent,

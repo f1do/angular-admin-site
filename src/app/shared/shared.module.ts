@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 @NgModule({
-    imports:[
+    imports: [
         RouterModule,
         CommonModule
     ],
