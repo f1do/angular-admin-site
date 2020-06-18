@@ -3,8 +3,11 @@ import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
-import 'sweetalert';
 import { Router } from '@angular/router';
+
+import { SweetAlert } from 'sweetalert/typings/core';
+import { LoadFileService } from '../load-file/load-file.service';
+const swal: SweetAlert = require('sweetalert');
 
 declare const gapi: any;
 
@@ -18,7 +21,8 @@ export class UserService {
 
   constructor(
     public http: HttpClient,
-    public router: Router
+    public router: Router,
+    public uploadFileService: LoadFileService
     ) {
     this.loadStorage();
    }
@@ -31,13 +35,14 @@ export class UserService {
      localStorage.removeItem('token');
 
      const auth2 = gapi.auth2?.getAuthInstance();
+
      if (auth2){
         auth2.signOut().then(() => {
           console.log('User signed out.');
-          window.location.href = '#/login';
+          window.location.href = '/login';
         });
       } else {
-        window.location.href = '#/login';
+        window.location.href = '/login';
       }
    }
 
@@ -57,13 +62,15 @@ export class UserService {
     }));
   }
 
-  storeUser(resp: any){
+  storeUser(resp: any) {
     localStorage.setItem('id', resp.user._id);
-    localStorage.setItem('token', resp.token);
     localStorage.setItem('user', JSON.stringify(resp.user));
 
     this.user = resp.user;
-    this.token = resp.token;
+    if (resp.token && resp.token.length > 5) {
+      localStorage.setItem('token', resp.token);
+      this.token = resp.token;
+    }
   }
 
   googleLogin(token: string){
@@ -94,5 +101,28 @@ export class UserService {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.token = localStorage.getItem('token');
     }
+  }
+
+  updateUser(user: User) {
+    const url = URL_SERVICIOS + '/user/' + user._id;
+
+    return this.http.put(url, user,  {headers: {token: this.token}})
+    .pipe(map((res: any) => {
+      this.storeUser(res);
+      swal('User updated successfully!', user.name, 'success');
+      return res.user;
+    }));
+  }
+
+  changeImage(file: File, id: string) {
+    this.uploadFileService.uploadFile(file, 'user', id)
+    .then((resp: any) => {
+      this.user.img = resp.user.img;
+      swal('Image uploaded successfully!', resp.user.name, 'success');
+      this.storeUser({user: this.user});
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 }

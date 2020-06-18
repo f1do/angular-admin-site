@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit {
         longtitle: false,
         theme: 'dark',
         cookiepolicy: 'single_host_origin',
-        onsuccess: (googleUsr) => {
+        onsuccess: (googleUsr: any) => {
+          gapi.auth2.init();
           const token = googleUsr.getAuthResponse().id_token;
           this.userService.googleLogin(token)
           // .subscribe(() => this.router.navigate(['/dashboard']));

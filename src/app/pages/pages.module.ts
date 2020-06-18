@@ -13,12 +13,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { GraphicsComponent } from './graphics/graphics.component';
 
+// Pipe Module
+import { PipesModule } from '../pipes/pipes.module';
+
 // Temporal
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { FormsModule } from '@angular/forms';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -30,7 +35,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         DoughnutGraphComponent,
         AccountSettingsComponent,
         PromisesComponent,
-        RxjsComponent
+        RxjsComponent,
+        ProfileComponent
     ],
     exports: [
         DashboardComponent,
@@ -41,7 +47,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         SharedModule,
         PagesRoutingModule,
         FormsModule,
-        ChartsModule
+        ChartsModule,
+        PipesModule,
+        CommonModule
     ]
 })
 

@@ -9,6 +9,6 @@ import { SettingsService } from './services/service.index';
 })
 export class AppComponent {
 
-  constructor(public _settings: SettingsService){ }
+  constructor(public settings: SettingsService){ }
 
 }
