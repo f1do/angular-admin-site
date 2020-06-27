@@ -24,6 +24,7 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { CommonModule } from '@angular/common';
         AccountSettingsComponent,
         PromisesComponent,
         RxjsComponent,
-        ProfileComponent
+        ProfileComponent,
+        UserComponent
     ],
     exports: [
         DashboardComponent,

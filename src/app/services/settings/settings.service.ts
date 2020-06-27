@@ -6,28 +6,31 @@ import { DOCUMENT } from '@angular/common';
 })
 export class SettingsService {
 
-  settings: Settings ={
+  settings: Settings = {
     urlTheme: 'assets/css/colors/default.css',
     theme: 'default'
   };
 
-  constructor(@Inject(DOCUMENT) private _docuemnt) { 
+  constructor(
+    @Inject(DOCUMENT) private _docuemnt
+  ) {
     this.loadSettings();
   }
 
-  saveSettings(){
+  saveSettings() {
     localStorage.setItem('settings', JSON.stringify(this.settings));
   }
-  loadSettings(){
+
+  loadSettings() {
     const prevSettings = localStorage.getItem('settings');
-    if(prevSettings){
+    if (prevSettings) {
       this.settings = JSON.parse(prevSettings);
     }
     this.applyTheme(this.settings.theme);
   }
 
-  applyTheme(theme: string){
-    let url = `assets/css/colors/${theme}.css`;
+  applyTheme(theme: string) {
+    const url = `assets/css/colors/${theme}.css`;
     this._docuemnt.getElementById('customTheme').setAttribute('href', url);
 
     this.settings.theme = theme;
@@ -37,7 +40,7 @@ export class SettingsService {
   }
 }
 
-interface Settings{
+interface Settings {
   urlTheme: string;
   theme: string;
 }

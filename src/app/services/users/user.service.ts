@@ -5,9 +5,9 @@ import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { SweetAlert } from 'sweetalert/typings/core';
 import { LoadFileService } from '../load-file/load-file.service';
-const swal: SweetAlert = require('sweetalert');
+import { SweetAlert } from 'sweetalert/typings/core';
+import swal from 'sweetalert';
 
 declare const gapi: any;
 
@@ -124,5 +124,14 @@ export class UserService {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  loadUsers(from: number = 0) {
+    const url = URL_SERVICIOS + '/user?from=' + from;
+
+    return this.http.get(url,  {headers: {token: this.token}})
+    .pipe(map((res: any) => {
+      return res;
+    }));
   }
 }

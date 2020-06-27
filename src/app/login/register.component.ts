@@ -3,9 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-
-import { SweetAlert } from 'sweetalert/typings/core';
-const swal: SweetAlert = require('sweetalert');
+import swal from 'sweetalert';
 
 declare function init_plugins();
 
