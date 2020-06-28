@@ -6,8 +6,10 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { LoadFileService } from '../load-file/load-file.service';
+import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
-import swal from 'sweetalert';
+
+const swal: SweetAlert = _swal as any;
 
 declare const gapi: any;
 
@@ -23,30 +25,30 @@ export class UserService {
     public http: HttpClient,
     public router: Router,
     public uploadFileService: LoadFileService
-    ) {
+  ) {
     this.loadStorage();
-   }
+  }
 
-   logOut() {
-     this.user = null;
-     this.token = '';
+  logOut() {
+    this.user = null;
+    this.token = '';
 
-     localStorage.removeItem('user');
-     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
 
-     const auth2 = gapi.auth2?.getAuthInstance();
+    const auth2 = gapi.auth2?.getAuthInstance();
 
-     if (auth2){
-        auth2.signOut().then(() => {
-          console.log('User signed out.');
-          window.location.href = '/login';
-        });
-      } else {
+    if (auth2) {
+      auth2.signOut().then(() => {
+        console.log('User signed out.');
         window.location.href = '/login';
-      }
-   }
+      });
+    } else {
+      window.location.href = '/login';
+    }
+  }
 
-  login(user: User, remember: boolean){
+  login(user: User, remember: boolean) {
 
     if (remember) {
       localStorage.setItem('email', user.email);
@@ -56,10 +58,10 @@ export class UserService {
 
     const url = URL_SERVICIOS + '/login';
     return this.http.post(url, user)
-    .pipe(map((res: any) => {
-      this.storeUser(res);
-      return true;
-    }));
+      .pipe(map((res: any) => {
+        this.storeUser(res);
+        return true;
+      }));
   }
 
   storeUser(resp: any) {
@@ -73,23 +75,23 @@ export class UserService {
     }
   }
 
-  googleLogin(token: string){
+  googleLogin(token: string) {
 
     const url = URL_SERVICIOS + '/login/google';
-    return this.http.post(url, {}, {headers: {token}})
-    .pipe(map((res: any) => {
-      this.storeUser(res);
-      return true;
-    }));
+    return this.http.post(url, {}, { headers: { token } })
+      .pipe(map((res: any) => {
+        this.storeUser(res);
+        return true;
+      }));
   }
 
   createUser(user: User) {
     const url = URL_SERVICIOS + '/user';
     return this.http.post(url, user)
-    .pipe(map((res: any) => {
-      swal('User created successfully!', user.email, 'success');
-      return res.user;
-    }));
+      .pipe(map((res: any) => {
+        swal('User created successfully!', user.email, 'success');
+        return res.user;
+      }));
   }
 
   isLogedIn() {
@@ -106,32 +108,49 @@ export class UserService {
   updateUser(user: User) {
     const url = URL_SERVICIOS + '/user/' + user._id;
 
-    return this.http.put(url, user,  {headers: {token: this.token}})
-    .pipe(map((res: any) => {
-      this.storeUser(res);
-      swal('User updated successfully!', user.name, 'success');
-      return res.user;
-    }));
+    return this.http.put(url, user, { headers: { token: this.token } })
+      .pipe(map((res: any) => {
+        if (user._id === this.user._id) {
+          this.storeUser(res);
+        }
+
+        swal('User updated successfully!', user.name, 'success');
+        return res.user;
+      }));
   }
 
   changeImage(file: File, id: string) {
     this.uploadFileService.uploadFile(file, 'user', id)
-    .then((resp: any) => {
-      this.user.img = resp.user.img;
-      swal('Image uploaded successfully!', resp.user.name, 'success');
-      this.storeUser({user: this.user});
-    })
-    .catch(err => {
-      console.log(err);
-    });
+      .then((resp: any) => {
+        this.user.img = resp.user.img;
+        swal('Image uploaded successfully!', resp.user.name, 'success');
+        this.storeUser({ user: this.user });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   loadUsers(from: number = 0) {
     const url = URL_SERVICIOS + '/user?from=' + from;
 
-    return this.http.get(url,  {headers: {token: this.token}})
-    .pipe(map((res: any) => {
-      return res;
-    }));
+    return this.http.get(url, { headers: { token: this.token } })
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
+  searchUser(term: string) {
+    const url = URL_SERVICIOS + `/search/collection/user/${term}`;
+
+    return this.http.get(url, { headers: { token: this.token } })
+      .pipe(map((res: any) => res.user));
+  }
+
+  removeUser(id: string) {
+    const url = URL_SERVICIOS + `/user/${id}`;
+
+    return this.http.delete(url, { headers: { token: this.token } })
+      .pipe(map((res: any) => res.user));
   }
 }

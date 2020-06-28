@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SettingsService, SidebarService, SharedService, UserService } from './service.index';
 import { LoginGuardGuard } from './guards/login-guard.guard';
 import { LoadFileService } from './load-file/load-file.service';
+import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 
 @NgModule({
   declarations: [],
@@ -11,13 +12,14 @@ import { LoadFileService } from './load-file/load-file.service';
     CommonModule,
     HttpClientModule
   ],
-  providers:[
+  providers: [
     SettingsService,
     SidebarService,
     SharedService,
     UserService,
     LoginGuardGuard,
-    LoadFileService
+    LoadFileService,
+    ModalUploadService
   ]
 })
 export class ServiceModule { }
