@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input type="text" class="form-control" placeholder="search user">
+                <input #input (keyup)="searchUser(input.value)" type="text" class="form-control" placeholder="search user">
 
             </div>
         </div>
@@ -42,13 +42,18 @@
                     <tbody>
                         <tr *ngFor="let usr of users">
                             <td>
-                                <div class="u-img">
-                                    <img [src]="usr.img | image" alt="user" class="w70" />
+                                <div class="u-img w50">
+                                    <img (click)="showModal(usr._id)" style="cursor: pointer;" [src]="usr.img | image: usr._id" alt="user" class="w50" />
                                 </div>
                             </td>
                             <td>{{usr.email}}</td>
                             <td>{{usr.name}}</td>
-                            <td>{{usr.role}}</td>
+                            <td>
+                                <select [(ngModel)]="usr.role" name="role" class="form-control">
+                                    <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                                    <option value="USER_ROLE">USER_ROLE</option>
+                                </select>
+                            </td>
                             <td>
 
                                 <label class="label label-danger" *ngIf="usr.google">Google</label>
@@ -56,10 +61,10 @@
 
                             </td>
                             <td>
-                                <button class="btn btn-primary mx-3">
+                                <button (click)="updateUser(usr)" class="btn btn-primary mx-3">
                                     <i class="fa fa-save"></i>
                                 </button>
-                                <button class="btn btn-danger">
+                                <button (click)="removeUser(usr)" class="btn btn-danger">
                                     <i class="fa fa-trash-o"></i>
                                 </button>
                             </td>

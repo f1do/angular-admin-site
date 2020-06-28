@@ -25,6 +25,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
 import { UserComponent } from './user/user.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { UserComponent } from './user/user.component';
         PromisesComponent,
         RxjsComponent,
         ProfileComponent,
-        UserComponent
+        UserComponent,
+        ModalUploadComponent
     ],
     exports: [
         DashboardComponent,

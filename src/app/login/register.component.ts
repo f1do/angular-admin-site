@@ -3,7 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/service.index';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import swal from 'sweetalert';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 
 declare function init_plugins();
 
@@ -18,12 +21,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(public userService: UserService, public router: Router) { }
 
-  sameValueFields(field1: string, field2: string){
+  sameValueFields(field1: string, field2: string) {
     return (grp: FormGroup) => {
       const pwd1 = grp.controls[field1].value;
       const pwd2 = grp.controls[field2].value;
 
-      if (pwd1 === pwd2){
+      if (pwd1 === pwd2) {
         return null;
       }
 
@@ -42,7 +45,7 @@ export class RegisterComponent implements OnInit {
       password: new FormControl(null, Validators.required),
       password2: new FormControl(null, Validators.required),
       conditions: new FormControl(false)
-    }, {validators: this.sameValueFields('password', 'password2')});
+    }, { validators: this.sameValueFields('password', 'password2') });
 
     // this.form.setValue({
     //   name: 'Test',
@@ -53,11 +56,11 @@ export class RegisterComponent implements OnInit {
     // });
   }
 
-  onSubmit(){
-    if (this.form.valid){
+  onSubmit() {
+    if (this.form.valid) {
       console.log(this.form.value);
-      if (!this.form.value.conditions){
-        swal ('Important!', 'You must accept the terms and conditions.', 'warning');
+      if (!this.form.value.conditions) {
+        swal('Important!', 'You must accept the terms and conditions.', 'warning');
         return;
       }
 
@@ -68,7 +71,7 @@ export class RegisterComponent implements OnInit {
       );
 
       this.userService.createUser(user)
-      .subscribe(res => this.router.navigate(['/login']));
+        .subscribe(res => this.router.navigate(['/login']));
 
     }
   }

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from 'src/app/services/service.index';
 
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -19,15 +24,15 @@ export class ProfileComponent implements OnInit {
     this.user = this.userService.user;
   }
 
-  onSubmit(usr: User){
+  onSubmit(usr: User) {
 
     this.user.name = usr.name;
-    if (!this.user.google){
+    if (!this.user.google) {
       this.user.email = usr.email;
     }
 
     this.userService.updateUser(this.user)
-    .subscribe((u: User) => this.user = u);
+      .subscribe((u: User) => this.user = u);
   }
 
   selectedImage(file?: File) {

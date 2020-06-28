@@ -6,9 +6,9 @@ import { URL_SERVICIOS } from '../config/config';
 })
 export class ImagePipe implements PipeTransform {
 
-  transform(img: string, type: string = 'user'): any {
+  transform(img: string, id: string, type: string = 'user'): any {
     const url = URL_SERVICIOS + '/img';
-    const id = JSON.parse(localStorage.getItem('user'))._id;
+    id = !id ? JSON.parse(localStorage.getItem('user'))._id : id;
 
     if (img?.indexOf('https') > -1) {
       return img;
