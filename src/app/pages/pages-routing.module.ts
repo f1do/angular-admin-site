@@ -13,32 +13,38 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './user/user.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
+import { DoctorsComponent } from './doctors/doctors.component';
+import { DoctorComponent } from './doctors/doctor.component';
 
 
 const pagesRoutes: Routes = [
-    {
-        path: '',
-        component: PagesComponent,
-        canActivate: [LoginGuardGuard],
-        children: [
-            {path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' }},
-            {path: 'progress', component: ProgressComponent, data: { title: 'Progress' }},
-            {path: 'graphics', component: GraphicsComponent, data: { title: 'Graphics' }},
-            {path: 'promises', component: PromisesComponent, data: { title: 'Promises' }},
-            {path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' }},
-            {path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Settings' }},
-            {path: 'profile', component: ProfileComponent, data: { title: 'User profile' }},
-            // Maintenance
-            {path: 'user', component: UserComponent, data: { title: 'User maintenance' }},
-            {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
-        ]
-      },
-      {path: '**', component: PagenotfoundComponent}
+  {
+    path: '',
+    component: PagesComponent,
+    canActivate: [LoginGuardGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+      { path: 'progress', component: ProgressComponent, data: { title: 'Progress' } },
+      { path: 'graphics', component: GraphicsComponent, data: { title: 'Graphics' } },
+      { path: 'promises', component: PromisesComponent, data: { title: 'Promises' } },
+      { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' } },
+      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Settings' } },
+      { path: 'profile', component: ProfileComponent, data: { title: 'User profile' } },
+      // Maintenance
+      { path: 'user', component: UserComponent, data: { title: 'User maintenance' } },
+      { path: 'hospital', component: HospitalsComponent, data: { title: 'Hospital maintenance' } },
+      { path: 'doctor', component: DoctorsComponent, data: { title: 'Doctor maintenance' } },
+      { path: 'doctor/:id', component: DoctorComponent, data: { title: 'Update Doctor' } },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+    ]
+  },
+  { path: '**', component: PagenotfoundComponent }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(pagesRoutes)],
-    exports: [RouterModule]
-  })
+  imports: [RouterModule.forChild(pagesRoutes)],
+  exports: [RouterModule]
+})
 
 export class PagesRoutingModule { }
