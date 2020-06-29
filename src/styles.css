@@ -33,3 +33,9 @@
     height: 100%;
     z-index: 9999;
 }
+
+.badge-create {
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 10px;
+}

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from 'src/app/services/service.index';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
-import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 const swal: SweetAlert = _swal as any;
 
@@ -44,9 +44,7 @@ export class UserComponent implements OnInit {
   }
 
   changeFrom(f: number) {
-    console.log('from', this.from);
-    console.log('f', f);
-    if (!(this.from === 0 && f < 0)) {
+    if (!((this.from === 0 && f < 0) || ((this.from + f) > this.totalRecords && f > 0))) {
       this.from += f;
       this.loadUsers();
     }
@@ -70,7 +68,7 @@ export class UserComponent implements OnInit {
     else {
       swal({
         title: 'Are you sure?',
-        text: 'Once deleted, you will not be able to recover this imaginary file!',
+        text: 'Once deleted, you will not be able to recover this information!',
         icon: 'warning',
         buttons: ['Cancel', 'Accept'],
         dangerMode: true,
