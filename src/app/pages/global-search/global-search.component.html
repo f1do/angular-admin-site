@@ -1,0 +1,66 @@
+<div class="row">
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Users</h4>
+                <table class="table table-hover" *ngIf="users.length > 0">
+                    <tbody>
+                        <tr class="pointer" *ngFor="let usr of users" [routerLink]="['/users']">
+                            <td>
+                                <div class="u-img w50">
+                                    <img [src]="usr.img | image: usr._id" alt="user" class="img-fluid img-rounded" />
+                                </div>
+                            </td>
+                            <td>{{usr.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="users.length === 0">No records found for: {{term}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Doctors</h4>
+                <table class="table table-hover" *ngIf="doctors.length > 0">
+                    <tbody>
+                        <tr class="pointer" *ngFor="let doc of doctors" [routerLink]="['/doctor', doc._id]">
+                            <td>
+                                <div class="u-img w50">
+                                    <img [src]="doc.img | image: doc._id : 'doctor'" alt="user" class="img-fluid img-rounded" />
+                                </div>
+                            </td>
+                            <td>{{doc.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="doctors.length === 0">No records found for: {{term}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hospitals</h4>
+                <table class="table table-hover" *ngIf="hospitals.length > 0">
+                    <tbody>
+                        <tr class="pointer" *ngFor="let hos of hospitals" [routerLink]="['/hospital']">
+                            <td>
+                                <div class="u-img w50">
+                                    <img [src]="hos.img | image: hos._id : 'hospital'" alt="user" class="pointer img-fluid img-rounded" />
+                                </div>
+                            </td>
+                            <td>{{hos.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="hospitals.length === 0">No records found for: {{term}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

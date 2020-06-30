@@ -5,7 +5,6 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
 
 import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
-
 const swal: SweetAlert = _swal as any;
 
 @Component({
@@ -95,7 +94,9 @@ export class HospitalsComponent implements OnInit {
       title: 'Create Hospital',
       icon: 'info',
       text: 'Please, enter a name for the new hospital.',
-      content: 'input',
+      content: {
+        element: 'input'
+      },
       buttons: [false, true],
       dangerMode: true
     })

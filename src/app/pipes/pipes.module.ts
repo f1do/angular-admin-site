@@ -7,7 +7,7 @@ import { ImagePipe } from './image.pipe';
   declarations: [ImagePipe],
   imports: [
   ],
-  exports:[
+  exports: [
     ImagePipe
   ]
 })
