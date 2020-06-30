@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { LoadFileService } from '../load-file/load-file.service';
+
 import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
 
@@ -20,6 +21,7 @@ export class UserService {
 
   user: User = null;
   token: string = '';
+  menu: any = [];
 
   constructor(
     public http: HttpClient,
@@ -31,10 +33,12 @@ export class UserService {
 
   logOut() {
     this.user = null;
+    this.menu = [];
     this.token = '';
 
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     const auth2 = gapi.auth2?.getAuthInstance();
 
@@ -69,6 +73,10 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(resp.user));
 
     this.user = resp.user;
+
+    this.menu = resp.menu || this.menu;
+    localStorage.setItem('menu', JSON.stringify(this.menu));
+
     if (resp.token && resp.token.length > 5) {
       localStorage.setItem('token', resp.token);
       this.token = resp.token;
@@ -101,7 +109,12 @@ export class UserService {
   loadStorage() {
     if (localStorage.getItem('token')) {
       this.user = JSON.parse(localStorage.getItem('user'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
       this.token = localStorage.getItem('token');
+    } else {
+      this.user = null;
+      this.menu = [];
+      this.token = '';
     }
   }
 

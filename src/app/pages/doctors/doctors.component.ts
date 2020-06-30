@@ -8,6 +8,7 @@ import { SweetAlert } from 'sweetalert/typings/core';
 
 const swal: SweetAlert = _swal as any;
 
+
 @Component({
   selector: 'app-doctors',
   templateUrl: './doctors.component.html',
