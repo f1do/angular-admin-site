@@ -7,8 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
 import { DoughnutGraphComponent } from '../components/doughnut-graph/doughnut-graph.component';
 
-import { PagesComponent } from './pages.component';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { GraphicsComponent } from './graphics/graphics.component';
@@ -33,7 +31,6 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
 
 @NgModule({
     declarations: [
-        PagesComponent,
         DashboardComponent,
         ProgressComponent,
         GraphicsComponent,
@@ -44,7 +41,7 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
         RxjsComponent,
         ProfileComponent,
         UserComponent,
-        ModalUploadComponent,
+        // ModalUploadComponent,
         HospitalsComponent,
         DoctorsComponent,
         DoctorComponent,
@@ -56,7 +53,7 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
         GraphicsComponent
     ],
     imports: [
-        SharedModule,
+        // SharedModule,
         PagesRoutingModule,
         FormsModule,
         ChartsModule,
