@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 import { LoadFileService } from '../load-file/load-file.service';
 
 import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
+import { of, Observable } from 'rxjs';
 
 const swal: SweetAlert = _swal as any;
 
@@ -17,6 +17,7 @@ declare const gapi: any;
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
   user: User = null;
@@ -29,6 +30,22 @@ export class UserService {
     public uploadFileService: LoadFileService
   ) {
     this.loadStorage();
+  }
+
+  tokenRenewal() {
+    const url = URL_SERVICIOS + '/login/renewedtoken';
+
+    return this.http.get(url, { headers: { token: this.token } })
+      .pipe(map((res: any) => {
+        this.token = res.token;
+        this.storeUser(res);
+        return true;
+      }),
+        catchError((err: any) => () => {
+          this.router.navigate(['/login']);
+          swal('Taken was not renewed', 'Token not renewed', 'error');
+        })
+      );
   }
 
   logOut() {
@@ -65,7 +82,9 @@ export class UserService {
       .pipe(map((res: any) => {
         this.storeUser(res);
         return true;
-      }));
+      }),
+        catchError((err: any) => swal('Error on login', err.error.message, 'error'))
+      );
   }
 
   storeUser(resp: any) {

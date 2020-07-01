@@ -58,7 +58,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
       if (!this.form.value.conditions) {
         swal('Important!', 'You must accept the terms and conditions.', 'warning');
         return;

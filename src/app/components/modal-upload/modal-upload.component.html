@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body" align="center">
 
-                    <img *ngIf="!imageTmp" [src]="'' | image" alt="" class="w150">
+                    <img *ngIf="!imageTmp" [src]="'' | image: ''" alt="" class="w150">
                     <img *ngIf="imageTmp" [src]="imageTmp" alt="" class="w150">
                     <input type="file" class="form-control-sm" (change)="selectedImage($event.target.files[0])">
 

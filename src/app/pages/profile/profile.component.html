@@ -36,7 +36,7 @@
                 <h4 class="card-title">User picture</h4>
                 <h6 class="card-subtitle">User Name</h6>
 
-                <img *ngIf="!imageTmp" [src]="user.img | image" alt="" class="w150">
+                <img *ngIf="!imageTmp" [src]="user.img | image: ''" alt="" class="w150">
                 <img *ngIf="imageTmp" [src]="imageTmp" alt="" class="w150">
                 <input type="file" class="form-control-sm" (change)="selectedImage($event.target.files[0])">
                 <hr/>
